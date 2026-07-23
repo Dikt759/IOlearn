@@ -2,11 +2,8 @@
 <html lang="de" data-theme="light">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="light dark">
-  <meta name="theme-color" content="#08142d">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: blob:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'">
   <meta name="referrer" content="no-referrer">
   <meta name="description" content="Insolvenz.Klar – Lernplattform zum österreichischen Insolvenzrecht mit 200 kuratierten Kernfragen, Normquellen und Rechtssätzen.">
@@ -573,7 +570,8 @@
     .back-scroll { flex:1 1 auto; min-height:0; overflow:auto; overscroll-behavior:contain; scrollbar-width:thin; }
     .answer-layout { display:grid; grid-template-columns:minmax(0,1.25fr) minmax(330px,.75fr); min-height:100%; }
     .answer-main { min-width:0; padding:22px 26px 26px; }
-    .answer-main .answer-lead { margin:0; padding:15px 17px; border:1px solid color-mix(in srgb,var(--answer) 25%,var(--line)); border-left:4px solid var(--answer); border-radius:13px; background:color-mix(in srgb,var(--mint-100) 55%,var(--paper)); font-size:1rem; line-height:1.58; }
+    .answer-lead-label { display:inline-flex; align-items:center; min-height:27px; margin:0 0 8px 2px; padding:4px 9px; border-radius:999px; background:var(--answer); color:#fff; font-size:.7rem; font-weight:950; letter-spacing:.075em; text-transform:uppercase; box-shadow:0 7px 16px color-mix(in srgb,var(--answer) 22%,transparent); }
+    .answer-main .answer-lead { margin:0; padding:20px 21px; border:1px solid color-mix(in srgb,var(--answer) 42%,var(--line)); border-left:6px solid var(--answer); border-radius:15px; background:linear-gradient(135deg,color-mix(in srgb,var(--mint-100) 78%,var(--paper)),color-mix(in srgb,var(--answer) 9%,var(--paper))); box-shadow:0 12px 28px color-mix(in srgb,var(--answer) 13%,transparent); color:var(--ink); font-size:clamp(1.16rem,1.45vw,1.32rem); line-height:1.56; font-weight:850; letter-spacing:-.008em; }
     .answer-main .answer-detail { margin:16px 1px 0; font-size:.92rem; line-height:1.68; }
     .answer-evidence { min-width:0; padding:18px; display:grid; align-content:start; gap:12px; border-left:1px solid var(--line); background:color-mix(in srgb,var(--surface) 56%,var(--paper)); }
     .answer-evidence .evidence-block { border-radius:13px; }
@@ -710,242 +708,6 @@
       .back-scroll { overflow:visible; }
     }
 
-
-    /* Mobile swipe deck */
-    .mobile-study-bar, .swipe-stamp, .swipe-guide { display:none; }
-
-    @media (max-width:720px) {
-      html, body { min-height:100%; overscroll-behavior-x:none; }
-      body[data-active-view="questions"] {
-        min-height:100svh;
-        background:
-          radial-gradient(circle at 15% 0%,rgba(85,92,242,.14),transparent 20rem),
-          radial-gradient(circle at 100% 22%,rgba(40,198,162,.10),transparent 18rem),
-          var(--surface);
-      }
-      body[data-active-view="questions"] .app-header { padding-top:env(safe-area-inset-top); }
-      body[data-active-view="questions"] .header-inner { min-height:56px; padding:0 10px; gap:7px; }
-      body[data-active-view="questions"] .brand { gap:0; }
-      body[data-active-view="questions"] .brand-mark { width:36px; height:36px; border-radius:11px; font-size:.92rem; }
-      body[data-active-view="questions"] .brand-copy { display:none; }
-      body[data-active-view="questions"] .top-nav { gap:1px; }
-      body[data-active-view="questions"] .nav-btn { min-height:40px; padding:6px 7px; border-radius:9px; font-size:.64rem; }
-      body[data-active-view="questions"] .theme-btn { width:40px; height:40px; min-width:40px; min-height:40px; }
-      body[data-active-view="questions"] .shell { padding:8px 8px calc(14px + env(safe-area-inset-bottom)); }
-
-      .mobile-study-bar {
-        display:grid;
-        grid-template-columns:auto minmax(0,1fr) auto;
-        align-items:center;
-        gap:8px;
-        margin:0 2px 7px;
-      }
-      .mobile-study-title {
-        overflow:hidden;
-        color:var(--muted);
-        font-size:.73rem;
-        font-weight:850;
-        text-align:center;
-        text-overflow:ellipsis;
-        white-space:nowrap;
-      }
-      .mobile-tool-btn {
-        min-height:42px;
-        padding:0 12px;
-        border:1px solid var(--line);
-        border-radius:999px;
-        display:inline-flex;
-        align-items:center;
-        justify-content:center;
-        gap:7px;
-        color:var(--ink);
-        background:color-mix(in srgb,var(--paper) 94%,transparent);
-        box-shadow:var(--shadow-sm);
-        font-size:.74rem;
-        font-weight:900;
-        cursor:pointer;
-      }
-      .mobile-tool-btn .ui-icon { width:17px; height:17px; }
-      .mobile-tool-btn[aria-pressed="true"] {
-        color:#fff;
-        border-color:transparent;
-        background:linear-gradient(135deg,var(--indigo-600),#6f55db);
-      }
-
-      body[data-active-view="questions"] .toolbar {
-        display:grid;
-        grid-template-columns:1fr 1fr;
-        max-height:0;
-        overflow:hidden;
-        opacity:0;
-        margin:0 2px;
-        padding:0;
-        border-width:0;
-        pointer-events:none;
-        transform:translateY(-7px);
-        transition:max-height .28s ease,opacity .2s ease,transform .28s ease,padding .28s ease,margin .28s ease,border-width .1s linear;
-      }
-      body[data-active-view="questions"] .toolbar.is-mobile-open {
-        max-height:350px;
-        opacity:1;
-        margin:0 2px 8px;
-        padding:8px;
-        border-width:1px;
-        pointer-events:auto;
-        transform:none;
-      }
-      body[data-active-view="questions"] .toolbar .control:first-child { grid-column:1 / -1; }
-      body[data-active-view="questions"] .toolbar .random-toggle { display:none; }
-      body[data-active-view="questions"] .result-bar { min-height:24px; margin:2px 7px 5px; }
-      body[data-active-view="questions"] #resultCount { font-size:.72rem; font-weight:750; }
-
-      #questionList {
-        position:relative;
-        isolation:isolate;
-        padding:5px 4px 0;
-      }
-      #questionList::before,
-      #questionList::after {
-        content:"";
-        position:absolute;
-        inset:15px 15px 6px;
-        z-index:-2;
-        border:1px solid color-mix(in srgb,var(--line) 82%,transparent);
-        border-radius:27px;
-        background:color-mix(in srgb,var(--paper) 92%,var(--surface));
-        box-shadow:0 12px 28px rgba(20,32,58,.07);
-        transform:translateY(11px) scale(.955);
-        opacity:.56;
-        pointer-events:none;
-      }
-      #questionList::after { z-index:-1; transform:translateY(6px) scale(.978); opacity:.78; }
-      #questionList:has(.empty-state)::before,
-      #questionList:has(.empty-state)::after { display:none; }
-
-      .study-card.q-card {
-        position:relative;
-        z-index:1;
-        height:auto;
-        min-height:0;
-        transform-origin:50% 92%;
-        will-change:transform,opacity;
-      }
-      .study-card .flip-stage { height:auto; }
-      .study-card .card-face {
-        min-height:clamp(420px,calc(100svh - 300px),570px);
-        border-radius:26px;
-        box-shadow:0 22px 52px rgba(20,32,58,.16);
-      }
-      .study-card.is-answer-open .card-face { min-height:0; }
-      .study-card .card-front { touch-action:pan-y; user-select:none; -webkit-user-select:none; }
-      .study-card.is-dragging .card-front { cursor:grabbing; }
-      .study-card.is-dragging { z-index:5; }
-      .study-card.is-dragging .card-face { box-shadow:0 30px 68px rgba(20,32,58,.23); }
-      .study-card .card-face .q-head { min-height:52px; padding:8px 10px 8px 14px; }
-      .study-card .front-body {
-        position:relative;
-        justify-content:flex-start;
-        padding:24px 20px 17px;
-      }
-      .study-card .question-overline { margin-top:auto; }
-      .study-card .front-body .question-title { margin-top:10px; font-size:clamp(1.38rem,6.4vw,1.9rem); line-height:1.3; }
-      .study-card .front-context { margin-top:16px; font-size:.76rem; }
-      .study-card .card-actionbar { min-height:64px; padding:9px 11px; }
-      .study-card .answer-trigger { min-height:46px; border-radius:14px; }
-
-      .swipe-stamp {
-        position:absolute;
-        top:76px;
-        z-index:8;
-        padding:6px 10px;
-        border:3px solid currentColor;
-        border-radius:10px;
-        opacity:var(--swipe-stamp-opacity,0);
-        pointer-events:none;
-        font-size:1rem;
-        font-weight:1000;
-        letter-spacing:.11em;
-        line-height:1;
-        text-transform:uppercase;
-        transition:opacity .06s linear;
-      }
-      .swipe-stamp-back { left:18px; color:var(--mint-500); transform:rotate(-9deg); }
-      .swipe-stamp-next { right:18px; color:var(--indigo-500); transform:rotate(9deg); }
-      .swipe-guide {
-        margin-top:auto;
-        padding-top:24px;
-        display:grid;
-        grid-template-columns:1fr auto 1fr;
-        align-items:center;
-        gap:8px;
-        color:var(--muted);
-        font-size:.66rem;
-        font-weight:850;
-        text-align:center;
-      }
-      .swipe-guide span:first-child { text-align:left; }
-      .swipe-guide span:last-child { text-align:right; }
-      .swipe-guide strong {
-        padding:5px 8px;
-        border:1px solid var(--line);
-        border-radius:999px;
-        color:var(--ink);
-        background:color-mix(in srgb,var(--paper) 88%,transparent);
-        font-size:.64rem;
-        letter-spacing:.05em;
-        text-transform:uppercase;
-      }
-
-      .pagination.study-pagination {
-        grid-template-columns:58px minmax(120px,1fr) 58px;
-        gap:11px;
-        margin:10px 12px 0;
-        padding-bottom:env(safe-area-inset-bottom);
-      }
-      .pagination.study-pagination .study-nav-btn {
-        width:58px;
-        min-width:58px;
-        height:58px;
-        padding:0;
-        border-radius:50%;
-        font-size:0;
-      }
-      .pagination.study-pagination .study-nav-btn .ui-icon { width:25px; height:25px; }
-      .pagination.study-pagination .study-nav-btn[data-step="1"] {
-        color:#fff;
-        border-color:transparent;
-        background:linear-gradient(135deg,var(--indigo-600),#6f55db);
-        box-shadow:0 12px 26px rgba(85,92,242,.28);
-      }
-      .pagination.study-pagination .study-nav-btn[data-step="-1"] {
-        color:var(--answer);
-        border-color:color-mix(in srgb,var(--answer) 28%,var(--line));
-      }
-      .study-position { font-size:.7rem; }
-      .study-position strong { font-size:.75rem; }
-
-      .study-card.is-answer-open + * { touch-action:auto; }
-      .study-card.is-answer-open .card-back { min-height:0; }
-      .study-card.is-answer-open .back-scroll { overflow:visible; }
-      .study-card.is-answer-open .answer-main { padding:18px 16px; }
-      .study-card.is-answer-open .answer-evidence { padding:13px; }
-      .study-card.is-answer-open .card-actionbar { position:sticky; bottom:0; z-index:4; padding-bottom:calc(9px + env(safe-area-inset-bottom)); backdrop-filter:blur(14px); }
-    }
-
-    @media (max-width:380px) {
-      body[data-active-view="questions"] .nav-btn { padding-inline:5px; font-size:.6rem; }
-      .mobile-study-title { display:none; }
-      .mobile-study-bar { grid-template-columns:1fr 1fr; }
-      .mobile-tool-btn { width:100%; }
-      .study-card .card-face { min-height:clamp(405px,calc(100svh - 292px),540px); }
-      .study-card .front-body { padding-inline:17px; }
-    }
-
-    @media (prefers-reduced-motion:reduce) and (max-width:720px) {
-      .study-card.q-card { will-change:auto; }
-      .swipe-stamp { transition:none; }
-    }
-
   </style>
 </head>
 <body>
@@ -979,25 +741,18 @@
         </div>
       </div>
 
-      <div class="mobile-study-bar" aria-label="Mobile Lernsteuerung">
-        <button class="mobile-tool-btn" id="mobileFilterBtn" type="button" aria-expanded="false" aria-controls="questionToolbar"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M7 12h10M10 18h4"></path></svg><span>Filter</span></button>
-        <span class="mobile-study-title">Karte wischen oder Pfeile nutzen</span>
-        <button class="mobile-tool-btn mobile-random-toggle" id="mobileRandomBtn" type="button" data-random-toggle data-label-on="Zufall an" data-label-off="Zufall" aria-pressed="false"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M16 3h5v5M4 20 21 3M21 16v5h-5M15 15l6 6M4 4l5 5"></path></svg><span class="mobile-random-label">Zufall</span></button>
-      </div>
-
-      <div class="toolbar" id="questionToolbar" aria-label="Fragen filtern">
+      <div class="toolbar" aria-label="Fragen filtern">
         <label class="control search-control"><span class="sr-only">Fragen durchsuchen</span><span class="search-icon" aria-hidden="true"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6"></circle><path d="m16 16 4 4"></path></svg></span><input id="questionSearch" type="search" placeholder="Mehrere Begriffe, §, Aktenzahl oder Rechtssatz …" autocomplete="off"><button class="search-clear" id="questionSearchClear" type="button" aria-label="Suche zurücksetzen" title="Suche zurücksetzen"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m7 7 10 10M17 7 7 17"></path></svg></button></label>
         <label class="control"><span class="sr-only">Rechtsgebiet</span><select id="areaFilter"></select></label>
         <label class="control"><span class="sr-only">Niveau</span><select id="difficultyFilter"><option value="all">Alle Niveaus</option><option>Basis</option><option>Anwendung</option><option>Fall</option></select></label>
         <label class="control"><span class="sr-only">Lernstatus</span><select id="statusFilter"><option value="all">Alle Lernstände</option><option value="open">Offen</option><option value="learning">In Arbeit</option><option value="secure">Sicher</option><option value="favorite">Favoriten</option></select></label>
-        <button class="ghost-btn random-toggle" id="randomBtn" type="button" data-random-toggle data-label-on="Zufall: Ein" data-label-off="Zufall: Aus" aria-pressed="false" aria-keyshortcuts="Z">Zufall: Aus</button>
+        <button class="ghost-btn random-toggle" id="randomBtn" type="button" aria-pressed="false" aria-keyshortcuts="Z">Zufall: Aus</button>
       </div>
 
       <div class="result-bar">
         <div id="resultCount" role="status" aria-live="polite" aria-atomic="true"><strong>200</strong> Kernfragen</div>
         <div class="study-shortcuts" aria-label="Tastaturhinweise"><span>← → navigieren</span><span>Leertaste: Lösung</span><span>Z: Zufall an/aus</span><span>/ : Suche</span></div>
       </div>
-      <p class="sr-only" id="swipeInstructions">Auf Mobilgeräten: Karte nach links wischen für die nächste Frage, nach rechts für die vorherige Frage. Die Pfeiltasten und Navigationsschaltflächen bleiben verfügbar.</p>
       <div class="question-list" id="questionList"></div>
       <nav class="pagination" id="pagination" aria-label="Seitennavigation"></nav>
     </section>
@@ -1066,14 +821,11 @@
     const VALID_STATUS = new Set(['open','learning','secure']);
     const openAnswers = new Set();
     const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
-    const mobileSwipeQuery = matchMedia('(max-width: 720px)');
     let currentIndex = 0;
     let activeView = 'questions';
     let pendingQuestionId = '';
     let randomHistory = [];
     let randomHistoryIndex = -1;
-    let swipeState = null;
-    let swipeLocked = false;
     let state = loadState();
 
     const $ = (id) => document.getElementById(id);
@@ -1230,9 +982,7 @@
       const query = $('questionSearch').value;
       const relation = relationMeta(q.caseRelation);
       const rs = c.rs ? `<a class="rs-code" href="${safeUrl(c.holdingUrl)}" target="_blank" rel="noopener noreferrer">${highlight(c.rs, query)} ↗</a>` : '<span class="rs-code">Entscheidungskern</span>';
-      return `<article class="q-card study-card ${isOpen ? 'is-answer-open' : ''}" id="question-${esc(q.id)}" aria-labelledby="question-title-${esc(q.id)}" aria-describedby="swipeInstructions" aria-roledescription="Lernkarte" aria-keyshortcuts="ArrowLeft ArrowRight Space">
-        <div class="swipe-stamp swipe-stamp-back" aria-hidden="true">Zurück</div>
-        <div class="swipe-stamp swipe-stamp-next" aria-hidden="true">Weiter</div>
+      return `<article class="q-card study-card ${isOpen ? 'is-answer-open' : ''}" id="question-${esc(q.id)}" aria-labelledby="question-title-${esc(q.id)}">
         <div class="flip-stage">
           <section class="card-face card-front" aria-hidden="${isOpen}" ${isOpen ? 'inert' : ''}>
             <header class="q-head">
@@ -1245,7 +995,6 @@
               <div class="question-overline">Prüfungsfrage</div>
               <h2 class="question-title" id="question-title-${esc(q.id)}">${highlight(q.question, query)}</h2>
               <div class="front-context"><span>${highlight(q.title, query)}</span><i></i><span>${highlight(q.areaParagraphs, query)}</span></div>
-              <div class="swipe-guide" aria-hidden="true"><span>← Weiter</span><strong>Wischen</strong><span>Zurück →</span></div>
             </div>
             <footer class="card-actionbar card-actionbar-solo">
               <button class="answer-trigger" data-answer="${esc(q.id)}" aria-expanded="${isOpen}" aria-controls="answer-${esc(q.id)}">
@@ -1264,6 +1013,7 @@
             <div class="back-scroll">
               <div class="answer-layout">
                 <section class="answer-main">
+                  <div class="answer-lead-label">Konkrete Antwort</div>
                   <p class="answer-lead">${highlight(q.answerLead, query)}</p>
                   <p class="answer-detail">${highlight(q.reasoning, query)}</p>
                 </section>
@@ -1306,13 +1056,10 @@
     }
 
     function updateRandomButton() {
-      document.querySelectorAll('[data-random-toggle]').forEach(button => {
-        button.setAttribute('aria-pressed', String(state.randomMode));
-        button.title = state.randomMode ? 'Zufallsmodus ausschalten' : 'Zufallsmodus einschalten';
-        const label = button.querySelector('.mobile-random-label');
-        const text = state.randomMode ? button.dataset.labelOn : button.dataset.labelOff;
-        if (label) label.textContent = text; else button.textContent = text;
-      });
+      const button = $('randomBtn');
+      button.setAttribute('aria-pressed', String(state.randomMode));
+      button.textContent = state.randomMode ? 'Zufall: Ein' : 'Zufall: Aus';
+      button.title = state.randomMode ? 'Zufallsmodus ausschalten' : 'Zufallsmodus einschalten';
     }
 
     function resetRandomHistory(questionId = '') {
@@ -1375,9 +1122,9 @@
       const disableNext = total < 2 || (!state.randomMode && currentIndex === total - 1);
       $('pagination').className = 'pagination study-pagination';
       $('pagination').innerHTML = `
-        <button class="study-nav-btn" data-step="-1" aria-label="Vorherige Frage" title="Vorherige Frage" ${disableBack?'disabled':''}>${icon('arrowLeft')} Zurück</button>
+        <button class="study-nav-btn" data-step="-1" ${disableBack?'disabled':''}>${icon('arrowLeft')} Zurück</button>
         <div class="study-position"><strong>${currentIndex + 1} von ${total}${state.randomMode ? ' · zufällig' : ''}</strong><span class="study-progress-line" role="progressbar" aria-label="Fragenfortschritt" aria-valuemin="1" aria-valuemax="${total}" aria-valuenow="${currentIndex + 1}"><i style="width:${pct}%"></i></span></div>
-        <button class="study-nav-btn" data-step="1" aria-label="${state.randomMode ? 'Nächste zufällige Frage' : 'Nächste Frage'}" title="${state.randomMode ? 'Nächste zufällige Frage' : 'Nächste Frage'}" ${disableNext?'disabled':''}>${state.randomMode ? 'Zufällig' : 'Weiter'} ${icon('arrowRight')}</button>`;
+        <button class="study-nav-btn" data-step="1" ${disableNext?'disabled':''}>${state.randomMode ? 'Zufällig' : 'Weiter'} ${icon('arrowRight')}</button>`;
     }
 
     function pickRandomIndex(items) {
@@ -1387,12 +1134,12 @@
       return next;
     }
 
-    function stepQuestion(delta, {focus = true} = {}) {
+    function stepQuestion(delta) {
       const items = filteredQuestions();
-      if (!items.length) return false;
+      if (!items.length) return;
       if (state.randomMode) {
         if (delta < 0) {
-          if (randomHistoryIndex <= 0) return false;
+          if (randomHistoryIndex <= 0) return;
           randomHistoryIndex -= 1;
           const id = randomHistory[randomHistoryIndex];
           const index = items.findIndex(q => q.id === id);
@@ -1412,157 +1159,14 @@
         }
       } else {
         const next = Math.min(Math.max(0, currentIndex + delta), items.length - 1);
-        if (next === currentIndex) return false;
+        if (next === currentIndex) return;
         currentIndex = next;
       }
       openAnswers.clear();
       renderQuestions();
-      if (focus) {
-        const title = document.querySelector('.question-title');
-        if (title) { title.setAttribute('tabindex','-1'); title.focus({preventScroll:true}); }
-      }
-      return true;
+      const title = document.querySelector('.question-title');
+      if (title) { title.setAttribute('tabindex','-1'); title.focus({preventScroll:true}); }
     }
-
-
-
-    function canNavigateQuestion(delta) {
-      const items = filteredQuestions();
-      if (items.length < 2) return false;
-      if (state.randomMode) return delta > 0 || randomHistoryIndex > 0;
-      return delta > 0 ? currentIndex < items.length - 1 : currentIndex > 0;
-    }
-
-    function clearSwipeStyles(card) {
-      if (!card) return;
-      card.classList.remove('is-dragging');
-      card.style.removeProperty('transform');
-      card.style.removeProperty('opacity');
-      card.style.removeProperty('--swipe-stamp-opacity');
-      card.querySelectorAll('.swipe-stamp').forEach(stamp => stamp.style.removeProperty('--swipe-stamp-opacity'));
-    }
-
-    function resetSwipeCard(card) {
-      if (!card) return;
-      const currentTransform = card.style.transform || 'translate3d(0,0,0) rotate(0deg)';
-      card.classList.remove('is-dragging');
-      if (reducedMotion.matches || typeof card.animate !== 'function') {
-        clearSwipeStyles(card);
-        return;
-      }
-      const animation = card.animate([
-        {transform:currentTransform, opacity:1},
-        {transform:'translate3d(0,0,0) rotate(0deg)', opacity:1}
-      ], {duration:210, easing:'cubic-bezier(.2,.8,.25,1)'});
-      animation.finished.catch(() => {}).finally(() => clearSwipeStyles(card));
-    }
-
-    function animateSwipeNavigation(card, delta) {
-      if (!card || swipeLocked) return;
-      swipeLocked = true;
-      const direction = delta > 0 ? -1 : 1;
-      const distance = Math.max(innerWidth * 1.18, 460);
-      const currentTransform = card.style.transform || 'translate3d(0,0,0) rotate(0deg)';
-      const finish = () => {
-        clearSwipeStyles(card);
-        stepQuestion(delta, {focus:false});
-        swipeLocked = false;
-      };
-      if (reducedMotion.matches || typeof card.animate !== 'function') {
-        finish();
-        return;
-      }
-      card.classList.remove('is-dragging');
-      const animation = card.animate([
-        {transform:currentTransform, opacity:1},
-        {transform:`translate3d(${direction * distance}px,18px,0) rotate(${direction * 19}deg)`, opacity:0}
-      ], {duration:235, easing:'cubic-bezier(.32,.72,.24,1)', fill:'forwards'});
-      animation.finished.catch(() => {}).finally(finish);
-    }
-
-    function endSwipe(event, cancelled = false) {
-      if (!swipeState || event.pointerId !== swipeState.pointerId) return;
-      const {card, dx, startedAt, horizontal} = swipeState;
-      const elapsed = Math.max(1, performance.now() - startedAt);
-      const velocity = dx / elapsed;
-      const threshold = Math.min(112, innerWidth * .26);
-      const delta = dx < 0 ? 1 : -1;
-      const committed = !cancelled && horizontal && (Math.abs(dx) >= threshold || (Math.abs(dx) >= 38 && Math.abs(velocity) > .58));
-      swipeState = null;
-      try { card.releasePointerCapture(event.pointerId); } catch (_) {}
-      if (committed && canNavigateQuestion(delta)) {
-        animateSwipeNavigation(card, delta);
-      } else {
-        resetSwipeCard(card);
-        if (committed && !canNavigateQuestion(delta)) toast(delta < 0 ? 'Keine frühere Frage verfügbar' : 'Keine weitere Frage verfügbar');
-      }
-    }
-
-    function initSwipeDeck() {
-      const deck = $('questionList');
-      if (!deck) return;
-      deck.addEventListener('pointerdown', event => {
-        if (!mobileSwipeQuery.matches || activeView !== 'questions' || swipeLocked) return;
-        if (event.button !== undefined && event.button !== 0) return;
-        const card = event.target.closest('.study-card');
-        if (!card || card.classList.contains('is-answer-open')) return;
-        if (event.target.closest('button,a,input,select,textarea,label')) return;
-        swipeState = {
-          pointerId:event.pointerId,
-          card,
-          startX:event.clientX,
-          startY:event.clientY,
-          dx:0,
-          dy:0,
-          horizontal:false,
-          startedAt:performance.now()
-        };
-        try { card.setPointerCapture(event.pointerId); } catch (_) {}
-      });
-      deck.addEventListener('pointermove', event => {
-        if (!swipeState || event.pointerId !== swipeState.pointerId) return;
-        const stateNow = swipeState;
-        stateNow.dx = event.clientX - stateNow.startX;
-        stateNow.dy = event.clientY - stateNow.startY;
-        const absX = Math.abs(stateNow.dx);
-        const absY = Math.abs(stateNow.dy);
-        if (!stateNow.horizontal) {
-          if (Math.max(absX, absY) < 8) return;
-          if (absY > absX * 1.12) {
-            endSwipe(event, true);
-            return;
-          }
-          stateNow.horizontal = true;
-          stateNow.card.classList.add('is-dragging');
-        }
-        event.preventDefault();
-        const delta = stateNow.dx < 0 ? 1 : -1;
-        const resistance = canNavigateQuestion(delta) ? 1 : .28;
-        const displayX = stateNow.dx * resistance;
-        const rotate = Math.max(-12, Math.min(12, displayX / 22));
-        const opacity = Math.min(1, Math.abs(displayX) / Math.min(112, innerWidth * .26));
-        stateNow.card.style.transform = `translate3d(${displayX}px,${Math.abs(displayX) * .025}px,0) rotate(${rotate}deg)`;
-        const activeStamp = stateNow.card.querySelector(stateNow.dx < 0 ? '.swipe-stamp-next' : '.swipe-stamp-back');
-        const inactiveStamp = stateNow.card.querySelector(stateNow.dx < 0 ? '.swipe-stamp-back' : '.swipe-stamp-next');
-        if (activeStamp) activeStamp.style.setProperty('--swipe-stamp-opacity', String(opacity));
-        if (inactiveStamp) inactiveStamp.style.setProperty('--swipe-stamp-opacity', '0');
-      }, {passive:false});
-      deck.addEventListener('pointerup', event => endSwipe(event));
-      deck.addEventListener('pointercancel', event => endSwipe(event, true));
-      deck.addEventListener('lostpointercapture', event => {
-        if (swipeState && event.pointerId === swipeState.pointerId) endSwipe(event, true);
-      });
-    }
-
-    function setMobileFiltersOpen(open) {
-      const toolbar = $('questionToolbar');
-      const button = $('mobileFilterBtn');
-      if (!toolbar || !button) return;
-      toolbar.classList.toggle('is-mobile-open', open);
-      button.setAttribute('aria-expanded', String(open));
-      button.querySelector('span').textContent = open ? 'Schließen' : 'Filter';
-    }
-
 
     function toggleAnswer(id) {
       const card = $(`question-${id}`);
@@ -1590,7 +1194,7 @@
     }
 
     function populateFilters() {
-      $('areaFilter').innerHTML = '<option value="all">Alle Rechtsgebiete · alle Paragraphen</option>' + DB.areas.map(a => `<option value="${esc(a.key)}">${esc(a.label)} · ${esc(a.paragraphs)}</option>`).join('');
+      $('areaFilter').innerHTML = '<option value="all">Alle Rechtsgebiete</option>' + DB.areas.map(a => `<option value="${esc(a.key)}">${esc(a.label)} · ${esc(a.paragraphs)}</option>`).join('');
       const courts = [...new Set(DB.cases.map(c => c.court))].sort((a,b)=>a.localeCompare(b,'de'));
       $('courtFilter').innerHTML = '<option value="all">Alle Gerichte</option>' + courts.map(c => `<option>${esc(c)}</option>`).join('');
     }
@@ -1633,7 +1237,6 @@
       if (!VALID_VIEWS.has(view)) view = 'questions';
       activeView = view;
       document.body.dataset.activeView = view;
-      if (view !== 'questions') setMobileFiltersOpen(false);
       document.querySelectorAll('.view').forEach(v => v.classList.toggle('is-active', v.id === `view-${view}`));
       document.querySelectorAll('[data-view]').forEach(button => {
         const current = button.dataset.view === view;
@@ -1801,7 +1404,6 @@
         openAnswers.clear();
         resetRandomHistory();
         renderQuestions();
-        if (mobileSwipeQuery.matches) setMobileFiltersOpen(false);
       }
       if (event.target.id === 'courtFilter') renderCases();
       if (event.target.id === 'importProgressFile' && event.target.files && event.target.files[0]) {
@@ -1815,8 +1417,7 @@
     $('questionSearchClear').addEventListener('click', () => { $('questionSearch').value=''; currentIndex=0; resetRandomHistory(); renderQuestions(); $('questionSearch').focus(); });
     $('caseSearchClear').addEventListener('click', () => { $('caseSearch').value=''; renderCases(); $('caseSearch').focus(); });
     $('themeBtn').addEventListener('click', () => { state.theme = state.theme === 'dark' ? 'light' : 'dark'; saveState(); applyTheme(); });
-    document.querySelectorAll('[data-random-toggle]').forEach(button => button.addEventListener('click', toggleRandomMode));
-    $('mobileFilterBtn').addEventListener('click', () => setMobileFiltersOpen(!$('questionToolbar').classList.contains('is-mobile-open')));
+    $('randomBtn').addEventListener('click', toggleRandomMode);
     $('exportProgress').addEventListener('click', exportProgress);
     $('importProgress').addEventListener('click', () => $('importProgressFile').click());
     $('resetProgress').addEventListener('click', () => {
@@ -1846,7 +1447,6 @@
 
     buildIndexes();
     populateFilters();
-    initSwipeDeck();
     applyTheme();
     $('reviewDate').textContent = DB.reviewDate;
     $('lawFooter').href = safeUrl(DB.lawUrl).replace(/&amp;/g,'&');
